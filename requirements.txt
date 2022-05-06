@@ -1,0 +1,6 @@
+setuptools
+kiteconnect
+
+pytest
+responses
+utils
