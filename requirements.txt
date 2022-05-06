@@ -1,9 +1,0 @@
-setuptools
-kiteconnect
-numpy
-pandas
-
-pytest
-responses
-utils
-

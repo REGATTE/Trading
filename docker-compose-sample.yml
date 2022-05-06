@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  goticker:
+    image: paragba/algotrading-exchange-manager:latest
+    container_name: algoexmgr
+    restart: unless-stopped
+    environment:
+      TZ: 'Asia/Kolkata'
+      ZERODHA_USER_ID         : ""
+      ZERODHA_PASSWORD        : ""
+      ZERODHA_API_KEY         : ""
+      ZERODHA_API_SECRET      : ""
+      ZERODHA_PIN             : ""  # Set ZERODHA_TOTP_SECRET_KEY = `NOT-USED` , to use ZERODHA_PIN for twauth
+      ZERODHA_TOTP_SECRET_KEY : "NOT-USED"
+      ZERODHA_REQ_TOKEN_URL   : "https://kite.zerodha.com/connect/login?v=3&api_key="
+      APP_LIVE_TRADING_MODE   : "TRUE"
+      TIMESCALEDB_USERNAME    : ""
+      TIMESCALEDB_PASSWORD    : ""
+      TIMESCALEDB_ADDRESS     : ""
+      TIMESCALEDB_PORT        : ""
+    volumes:
+      - ./algoExchMgr/log:/app/zfiles/log
+    
+# Use the below code to spawn TimescaleDB Container
+
+  timescaledb:
+    image: 'timescale/timescaledb:latest-pg14'
+    container_name: timescaledb
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
